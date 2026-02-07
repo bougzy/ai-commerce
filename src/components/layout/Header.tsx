@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Sparkles, RotateCcw } from "lucide-react";
+import { ShoppingCart, Sparkles, RotateCcw, Package } from "lucide-react";
 import { useCartStore } from "@/stores/cart-store";
+import { useOrderStore } from "@/stores/order-store";
 import { useSessionStore } from "@/stores/session-store";
 
 export default function Header() {
   const items = useCartStore((s) => s.items);
+  const orderCount = useOrderStore((s) => s.orders.length);
   const resetSession = useSessionStore((s) => s.resetSession);
   const itemCount = items.reduce((sum, i) => sum + i.quantity, 0);
 
@@ -26,6 +28,18 @@ export default function Header() {
             className="text-sm text-gray-300 hover:text-white transition-colors"
           >
             Products
+          </Link>
+          <Link
+            href="/orders"
+            className="relative text-sm text-gray-300 hover:text-white transition-colors flex items-center gap-1.5"
+          >
+            <Package className="w-4 h-4" />
+            Orders
+            {orderCount > 0 && (
+              <span className="bg-purple-500/20 text-purple-300 text-xs px-1.5 py-0.5 rounded-full font-medium">
+                {orderCount}
+              </span>
+            )}
           </Link>
           <Link
             href="/cart"

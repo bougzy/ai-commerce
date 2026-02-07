@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCartStore } from "@/stores/cart-store";
 import { getProductById } from "@/lib/data/products";
 import { formatPrice } from "@/lib/utils/format";
@@ -46,11 +47,13 @@ export default function CartSummary({ potentialSaving }: CartSummaryProps) {
         </div>
       </div>
 
-      <Button variant="ai" size="lg" className="w-full" disabled>
-        Proceed to Checkout
-      </Button>
+      <Link href="/checkout">
+        <Button variant="ai" size="lg" className="w-full">
+          Proceed to Checkout
+        </Button>
+      </Link>
       <p className="text-xs text-gray-500 text-center">
-        Checkout is simulated — this is a demo app
+        Checkout is simulated — no real payment
       </p>
     </div>
   );
